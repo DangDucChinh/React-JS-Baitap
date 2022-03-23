@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { Navbar, NavbarBrand } from 'reactstrap';
 import MenuComponent from './MenuComponent';
 import { DISHES } from '../shared/dishes2';
 import DishDetailComponent from './DishdetailComponent';
-
+import Header from './HeaderComponent';
+import Footer from './FooterComponent';
 class MainComponent extends Component {
     constructor(props) {
         super(props);
@@ -19,11 +19,7 @@ class MainComponent extends Component {
     render() {
         return (
             <div>
-                <Navbar dark color='primary'>
-                    <div className='container'>
-                        <NavbarBrand>This is React-App</NavbarBrand>
-                    </div>
-                </Navbar>
+                <Header />
                 <MenuComponent dishes={this.state.dishes} // thuộc tính dish truyền vào thì bằng statte ( mảng dish )
                     // tung ra sự kiện click nhằm thay đổi trạng thái của seletctedDish , tức khi nhấn thì chắc chắn có dish được chọn
                     // Id trên dish đó sẽ đc props dùng cho mục đích của dishDetail 
@@ -37,7 +33,8 @@ class MainComponent extends Component {
                     // 2.filter sẽ phân rã ra các dish
                     // 3. truyền dish vào ra kiểm tra , return ra dish.id nào = selectedDish
                     // 4. dish = ( gán bởi) dish.id mà trùng với selectedDish ( tức id của Card được chọn) 
-                />  
+                />
+                <Footer />  
             </div>
         );
     }
