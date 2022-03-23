@@ -1,75 +1,48 @@
 import React,{Component} from "react";
 import {Card, CardText ,CardImg, CardImgOverlay, CardBody, CardTitle} from 'reactstrap' ; 
 import 'bootstrap/dist/css/bootstrap.min.css' ; 
-
-class MenuComponent extends Component{
-    constructor(props){ // hàm tạo với tham số props
-        super(props) ; // 
-        // this.state = { // trang thái hiện tại gán bởi 1 Obj
-        //     selectedDish : null  // lựa chọn được 1 dish rồi . Khi nào cần sự kiện onclick thì 
-        //     // dùng tới thằng này để làm liên lạc . Bố liên lạc với con bởi props , và thường
-        //     // các con là presentational Component , vì vậy chỉ có trách nhiệm hiển thị vốn đã không có nhiều
-        //     // ý nghĩa 
-        // }
-    }
-
-    // onDishSelected(dish){ // hàm sẽ thay đổi state mõi khi thực hiện click ; sẽ gán trạng thái hiện tại bởi 1 dish
-    //     // mà được chọn hiện tại 
-    //     this.setState({selectedDish: dish}); 
-    // }
-
-    // renderDish(dish){
-    //     if(dish != null){
-    //         return(
-    //             <div className="col-12 col-md-5 col-lg-4 mb-5 m-1">
-    //             <Card>
-    //                 <CardImg width="100%" src={dish.image} alt={dish.name} />
-    //                 <CardBody>
-    //                     <CardTitle>{dish.name}</CardTitle>
-    //                     <CardText>{dish.description}</CardText>
-    //                 </CardBody>
-    //             </Card>
-    //             </div>
-    //         );
-    //     }else{
-    //         return (
-    //             <div></div>
-    //         );
-    //     }
-    // }
-
-    render(){ // phương thức render ( kết xuất và chắc chắn sẽ return ra 1 cái gì đó !)
-
-        const menu = this.props.dishes.map((dish)=>{ // dishes ở Menu ( App.js ) => dishes ; 
-            return (
-                <div key={dish.id} className="col-xs-12 col-sm-6 col-lg-3 mt-3">
-                    {/* <Card onClick={()=> this.props.onClick(dish.id)} */}
-                    <Card
-                        onClick={()=> this.props.onClick(dish.id)}>
-                        {/* this.props.onClick => Sự kiện xảy ra tại thằng mẹ của nó : MainComponent */}
-                        <CardImg width="100%" src={dish.image} alt={dish.name} />
-                        <CardImgOverlay>
-                            <CardTitle>{dish.name}</CardTitle>
-                        </CardImgOverlay>
-                        <CardTitle>{dish.name}</CardTitle>
-                        <i>Price : {dish.price} $.</i>
-                    </Card>
-                </div>
-            );
-        });
-        
-
-        return( // luôn trả ra ???
-            <div className="container">
-                <div className="row">
-                    {menu} 
-                </div>
-                {/* <div className="row">
-                    {this.renderDish(this.state.selectedDish)}
-                </div> */}
-            </div>
-        ); 
-    }
+function RenderMenuItem ({dish, aClick}) {  
+    return (
+        <Card onClick={() => aClick(dish.id)}>
+            <CardImg width="100%" src={dish.image} alt={dish.name} />
+            <CardImgOverlay>
+                <CardTitle>{dish.name}</CardTitle>
+            </CardImgOverlay>
+        </Card>
+    );
 }
 
-export default MenuComponent ; 
+
+    //1. Đầu tiên tạo hàm Menu , truyền tham số (props)
+    //2. dùng props- lúc này là một mảng dishes - tiến hành lấy các phần tử dish trong dishes
+    const Menu = (props) => {
+    //function Menu(props){ 
+    //    console.log(props) ; 
+    const menu = props.dishes.map((dish) => {
+    // const menu = this.props.dishes.map((dish) => { // ko sử dụng this dc do là arrowfunction 
+    // 3. <RenderMenuItem là 1 hàm mới được tạo . truyền dish và event onClick vào cho hàm : dish = dish , onClick
+    // thì là toiClick của props, tức bên trên nó phải có properties toiClick !!!
+        return (
+            <div className="col-xs-12 col-sm-6 col-lg-3 mt-3"  key={dish.id}>
+                <RenderMenuItem dish={dish} aClick={props.toiClick} /> 
+                
+            </div>
+        );
+    });
+    //4. Hành vi <RenderMenuItem> có thuộc tính aclick : 
+    //4.1 gọi RenderMenuItem , truyền dish và aclick
+    //4.2 khi có onClick của Card thì aClick return dish.id trả cho props.toiClick 
+    //4.3 toiClick có dish.id , do đó toiClick={(dishId)=> this.setStateSelect(dishId)} làm thay đổi seletedId tại
+    // MainComponent
+
+    //5. Hàm menu có kết quả trả ra là 1 return 
+    return (
+        <div className="container">
+            <div className="row">
+                {menu}
+            </div>
+        </div>
+    );
+}
+
+export default Menu;

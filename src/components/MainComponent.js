@@ -27,13 +27,12 @@ class MainComponent extends Component {
                 <MenuComponent dishes={this.state.dishes} // thuộc tính dish truyền vào thì bằng statte ( mảng dish )
                     // tung ra sự kiện click nhằm thay đổi trạng thái của seletctedDish , tức khi nhấn thì chắc chắn có dish được chọn
                     // Id trên dish đó sẽ đc props dùng cho mục đích của dishDetail 
-                    onClick={(dishId)=> this.setStateSelect(dishId)} />  
+                    toiClick={(dishId)=> this.setStateSelect(dishId)} />  
 
                 
                 <DishDetailComponent // truyền vào Id đã nhận được từ trc , thể hiện nó ra bằng cách tìm id đó
                     // lọc Id từ state( trạng thái ) dishes và lấy ra chúng.
-                    dish={this.state.dishes.filter((dish)=> dish.id === this.state.selectedDish)} 
-
+                    dish={this.state.dishes.filter((dish)=> dish.id === this.state.selectedDish)}
                     // 1.dùng filter lọc các dish từ mảng dishes . 
                     // 2.filter sẽ phân rã ra các dish
                     // 3. truyền dish vào ra kiểm tra , return ra dish.id nào = selectedDish
