@@ -1,18 +1,26 @@
 import React, { Component } from 'react';
 import MenuComponent from './MenuComponent';
-import { DISHES } from '../shared/dishes2';
+import {COMMENTS} from '../shared/comments';
+import {DISHES} from '../shared/dishes';
+import {LEADERS} from '../shared/leaders';
+import {PROMOTIONS} from '../shared/promotion';
 import DishDetailComponent from './DishdetailComponent';
 import Header from './HeaderComponent';
 import Footer from './FooterComponent';
 import Home from './HomeComponent';
 import {Switch, Route, Redirect} from 'react-router-dom';
+import Contact from './ContactComponent';
+
+
 class MainComponent extends Component {
     constructor(props) {
         super(props);
         this.state = {
             dishes: DISHES, // thằng này để hiện thị menu 
             // selectedDish: null // thằng này dùng để hiện thị món ăn được chọn qua props , cụ thể ở đây thì nó truyền ID dish
-
+            comments: COMMENTS , 
+            promotion: PROMOTIONS , 
+            leaders: LEADERS ,
         }
         
     }
@@ -25,26 +33,16 @@ class MainComponent extends Component {
 
         const HomePage = ()=>{
             return(
-                <Home />
+                <Home dish={this.state.dishes.filter((dish)=>dish.featured)[0]}
+                promotion={this.state.promotion.filter((promotion)=>promotion.featured)[0]}
+                leaders={this.state.leaders.filter((leaders)=>leaders.featured)[0]}
+                />
             );
         }
 
         return (
             <div>
-                {/* <MenuComponent dishes={this.state.dishes} // thuộc tính dish truyền vào thì bằng statte ( mảng dish )
-                    // tung ra sự kiện click nhằm thay đổi trạng thái của seletctedDish , tức khi nhấn thì chắc chắn có dish được chọn
-                    // Id trên dish đó sẽ đc props dùng cho mục đích của dishDetail 
-                    toiClick={(dishId)=> this.setStateSelect(dishId)} />  
-
-                 */}
-                {/* <DishDetailComponent // truyền vào Id đã nhận được từ trc , thể hiện nó ra bằng cách tìm id đó
-                    // lọc Id từ state( trạng thái ) dishes và lấy ra chúng.
-                    dish={this.state.dishes.filter((dish)=> dish.id === this.state.selectedDish)}
-                    // 1.dùng filter lọc các dish từ mảng dishes . 
-                    // 2.filter sẽ phân rã ra các dish
-                    // 3. truyền dish vào ra kiểm tra , return ra dish.id nào = selectedDish
-                    // 4. dish = ( gán bởi) dish.id mà trùng với selectedDish ( tức id của Card được chọn) 
-                /> */ }
+                
                 <Header />
                 <Switch>
                     <Route path='/home' component={HomePage} />
@@ -52,6 +50,10 @@ class MainComponent extends Component {
                         exact 
                         path='/menu' 
                         component={ ()=><MenuComponent dishes={this.state.dishes} /> } />
+                    <Route 
+                        exact
+                        path='/contactus'
+                        component={Contact} /> 
                     <Redirect to='/home' />
                     {/* Mặc định Direct */}
                 </Switch>
