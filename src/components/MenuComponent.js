@@ -1,13 +1,16 @@
 import React,{Component} from "react";
-import {Card, CardText ,CardImg, CardImgOverlay, CardBody, CardTitle} from 'reactstrap' ; 
+import {Card, CardText ,CardImg, CardImgOverlay, CardBody, CardTitle, Breadcrumb, BreadcrumbItem} from 'reactstrap' ; 
 import 'bootstrap/dist/css/bootstrap.min.css' ; 
+import {Link} from 'react-router-dom' ; 
 function RenderMenuItem ({dish, aClick}) {  
     return (
-        <Card onClick={() => aClick(dish.id)}>
+        <Card>
+            <Link to={`/menu/${dish.id}`}>
             <CardImg width="100%" src={dish.image} alt={dish.name} />
             <CardImgOverlay>
                 <CardTitle>{dish.name}</CardTitle>
             </CardImgOverlay>
+            </Link>
         </Card>
     );
 }
@@ -24,7 +27,7 @@ function RenderMenuItem ({dish, aClick}) {
     // thì là toiClick của props, tức bên trên nó phải có properties toiClick !!!
         return (
             <div className="col-xs-12 col-sm-6 col-lg-3 mt-3"  key={dish.id}>
-                <RenderMenuItem dish={dish} aClick={props.toiClick} /> 
+                <RenderMenuItem dish={dish} />
                 
             </div>
         );
@@ -38,6 +41,18 @@ function RenderMenuItem ({dish, aClick}) {
     //5. Hàm menu có kết quả trả ra là 1 return 
     return (
         <div className="container">
+            <div className="row">
+                <Breadcrumb>
+                    <BreadcrumbItem>
+                        <Link to='/home'>Home</Link>
+                    </BreadcrumbItem>
+                    <BreadcrumbItem active>Menu</BreadcrumbItem>
+                </Breadcrumb>
+                <div className="col-12">
+                    <h3>Menues</h3>
+                    <hr />
+                </div>
+            </div>
             <div className="row">
                 {menu}
             </div>

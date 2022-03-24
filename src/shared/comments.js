@@ -4,7 +4,7 @@ export const COMMENTS =
         id: 0,
         dishId: 0,
         rating: 5,
-        comment: "Imagine all the eatables, living in conFusion!",
+        comment: "Món ăn thật là tuyệt vời và tôi biết ơn rất nhiều về nó !",
         author: "John Lemon",
         date: "2012-10-16T17:57:28.556094Z"
     },
@@ -60,7 +60,7 @@ export const COMMENTS =
         id: 7,
         dishId: 1,
         rating: 3,
-        comment: "Eat it, just eat it!",
+        comment: "Ngon đấy , Ở Việt Nam chúng tôi cũng có món bánh tro làm từ thực vật , quả thật rất giống và ngon !!",
         author: "Michael Jaikishan",
         date: "2015-02-13T17:57:28.556094Z"
     },

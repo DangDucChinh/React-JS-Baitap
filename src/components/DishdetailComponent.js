@@ -2,21 +2,21 @@
 // import { Card, CardText, CardImg, CardImgOverlay, CardBody, CardTitle } from 'reactstrap';
 import dateFormat from "dateformat";
 import 'bootstrap/dist/css/bootstrap.min.css';
-
 import React from 'react';
-import { Card, CardImg, CardText, CardBody, CardTitle } from 'reactstrap';
+import { Card, CardImg, CardText, CardBody, CardTitle, Breadcrumb, BreadcrumbItem } from 'reactstrap';
+import {Link} from 'react-router-dom' ; 
 
 
 function RenderDish({ dish }) {
-    var mang = dish[0];
+    //console.log(dish) ; 
     return (
         <div className="col-xs-12 col-sm-6 col-lg-4">
             <Card>
-                <CardImg width="100%" src={mang.image} alt={mang.name} />
+                <CardImg width="100%" src={dish.image} alt={dish.name} />
                 <CardBody>
-                    <CardTitle>{mang.name}</CardTitle>
-                    <CardText>{mang.description}</CardText>
-                    Price: <i>{mang.price}</i> $
+                    <CardTitle>{dish.name}</CardTitle>
+                    <CardText>{dish.description}</CardText>
+                    Price: <i>{dish.price}</i> $
                 </CardBody>
             </Card>
         </div>
@@ -44,32 +44,32 @@ function RenderComments({ comments }) {
     );
 }
 
-const DishDetail = (props) => { // tuyền props , hiện props là 1 obj chứa thông tin của dish (mà được select)
-    // chứ ko phải dishId, Id có tác dụng tìm ra dish đó mà thôi . 
-    // console.log(typeof props);
-    //console.log(props.dish.length); 
-    if (props.dish.length === 0) {
-        return (
-            <div className="container">
-                <div className="row" style={{ marginTop: '50px', marginBottom: '30px' }}>
-                    <i>Bấm vào thẻ để hiển thị chi tiết món ăn !!!</i>
-                </div>
-            </div>
-        );
-    } else {
+const DishDetail = (props) => { 
+    //console.log(props.dish + 'dishDetail') ; // lấy ra chỉ số id của chúng !
         return (
             <div className='container'>
                 <div className="row" style={{ marginTop: '50px'}}>
                     <h5>Thông tin món ăn vừa được chọn : </h5>
                 </div>
+                <div className="row">
+                    <Breadcrumb>
+
+                        <BreadcrumbItem><Link to="/menu">Menu</Link></BreadcrumbItem>
+                        <BreadcrumbItem active>{props.dish.name}-- BreadcrumbItem</BreadcrumbItem>
+                    </Breadcrumb>
+                    <div className="col-12">
+                        <h3>{props.dish.name} -</h3>
+                        <hr />
+                    </div>                
+                </div>
                 <div className="row" style={{ marginTop: '50px', marginBottom: '30px' }}>
                     <RenderDish dish={props.dish} />
-                    <RenderComments comments={props.dish[0].comments} />
+                    <RenderComments comments={props.comments} />
                 </div>
             </div>
         );
-    }
 }
+
 
 export default DishDetail;
 // class DishDetailComponent extends Component {

@@ -40,6 +40,17 @@ class MainComponent extends Component {
             );
         }
 
+        const DishWithId = ({match}) => {
+            // console.log(this.state.dishes.filter((dish) => dish.id === parseInt(match.params.dishId,10))) ; 
+            // console.log('-----') ; 
+            // console.log(this.state.dishes.filter((dish) => dish.id === parseInt(match.params.dishId,10))[0]);
+
+            return(
+                <DishDetailComponent dish={this.state.dishes.filter((dish) => dish.id === parseInt(match.params.dishId,10))[0]} 
+                   comments={this.state.comments.filter((comment) => comment.dishId === parseInt(match.params.dishId,10))} />
+            );
+          };
+
         return (
             <div>
                 
@@ -54,6 +65,7 @@ class MainComponent extends Component {
                         exact
                         path='/contactus'
                         component={Contact} /> 
+                    <Route path='/menu/:dishId' component={DishWithId} />
                     <Redirect to='/home' />
                     {/* Mặc định Direct */}
                 </Switch>
