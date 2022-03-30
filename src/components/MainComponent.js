@@ -17,7 +17,14 @@ class MainComponent extends Component {
             staffs: STAFFS,
             departments: DEPARTMENTS
         }
-        
+        this.addStaff = this.addStaff.bind(this) ;
+    }
+    addStaff = (staff)=>{
+        const id=Math.floor(Math.random() * 10000 + 1);
+        const newStaff = {id, ...staff};
+        this.setState({
+            staffs: [...this.state.staffs, newStaff]
+        });
     }
     render() {
 
@@ -39,7 +46,7 @@ class MainComponent extends Component {
                     <Route 
                         exact 
                         path='/nhanvien'  // menu
-                        component={ ()=><MenuComponent staffs={this.state.staffs} /> } />
+                        component={ ()=><MenuComponent onAdd={this.addStaff} staffs={this.state.staffs} /> } />
                     <Route 
                         exact
                         path='/phongban' // contactus
