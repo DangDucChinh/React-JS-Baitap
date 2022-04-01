@@ -33,11 +33,9 @@ class SubmitComment extends Component {
             [name]: value
         });
     }
-    handleSubmit(event) {
+    handleSubmit(values) {
         console.log('Yourname : ' + this.state.yourname + " / Comment : " + this.state.comment);
-        alert('Current State is : ' + JSON.stringify(this.state));
-        event.preventDefault(); // ngăn chặn hành vi xảy ra sự kiện khi ren
-        // ra trang tiếp theo 
+        this.props.addComment(this.props.dishId, values.rating, values.author, values.comment );
     }
 
     toggleModal() {

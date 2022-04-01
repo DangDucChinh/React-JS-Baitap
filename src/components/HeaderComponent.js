@@ -70,6 +70,7 @@ class Header extends Component {
                         </Nav>
                         {/* căn lền trái càng nhiều càng tốt */}
                     </Collapse>
+                    
                     <Nav className="ml-auto" navbar>
                         <NavItem>
                             <Button outline onClick={this.toggleModal}><span className="fa fa-sign-in fa-lg"></span> Login</Button>

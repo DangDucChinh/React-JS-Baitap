@@ -6,6 +6,7 @@ import React, { Component } from 'react';
 import { Card, CardImg, CardText,Button ,CardBody, CardTitle, Breadcrumb, BreadcrumbItem } from 'reactstrap';
 import {Link} from 'react-router-dom' ; 
 import SubmitComment from "./SubmitComment";
+import {Comment} from 'react-redux';
 
 
 function RenderDish({ dish }) {
@@ -26,8 +27,23 @@ function RenderDish({ dish }) {
     );
 
 }
-
-function RenderComments({ comments }) {
+function CommentForm ({comment}){
+    const comment1 = comment.map((comment1)=>{
+        return(
+            <div>
+            <p>{comment1.comment}</p>
+            <p>{"-- "+comment1.author+ ", "+dateFormat(comment1.date,"dd/mm/yyyy")}</p>
+            </div>
+        )
+    });
+    return(
+        <div className="col-12 col-md-5 m-1">
+            <h4 style={{textAlign: "left"}}>Comments</h4>
+                    {comment1}
+        </div>
+    )
+}
+function RenderComments({ comments, addComment, dishId }) {
     const listComment = comments.map((tungComment) => {
         return (
             <div key={tungComment.id}>
@@ -40,9 +56,11 @@ function RenderComments({ comments }) {
         <div className="col-xs-12 col-sm-6 col-lg-8">
             <Card>
                 <h5>Comments</h5>
-                {listComment}
+                <CommentForm comment={comments} />
+            
             </Card><br />
-            <SubmitComment />
+            <SubmitComment /> 
+            {/*  */}
         </div>
 
     );
@@ -67,7 +85,9 @@ const DishDetail = (props) => {
                 </div>
                 <div className="row" style={{ marginTop: '50px', marginBottom: '30px' }}>
                     <RenderDish dish={props.dish} />
-                    <RenderComments comments={props.comments} />
+                    <RenderComments comments={props.comments} 
+                    addComment={props.addComment}
+                    dishId={props.dish.id}/>
                 </div>
                 
             </div>

@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import MenuComponent from './MenuComponent';
-import DishDetailComponent from './DishdetailComponent';
-import Header from './HeaderComponent';
 import Footer from './FooterComponent';
 import Home from './HomeComponent';
 import {Switch, Route, Redirect, withRouter} from 'react-router-dom';
-import Contact from './ContactComponent';
+import Contact2 from './Contact2';
 import About from './AboutComponent';
 import {connect} from 'react-redux';
+import Header2 from './Header2';
 
+import { addComment } from '../redux/ActionCreator';
+import DishDetail2 from './DishDetail2';
 
 const mapStateToProps = state =>{
     return {
@@ -18,6 +19,16 @@ const mapStateToProps = state =>{
         leaders: state.leaders
     }
 }
+
+// const mapDispatchToProps = (dispatch)=>({
+//     addComment: (dishId, rating, author, comment)=> 
+//     dispatch(addComment(dishId, rating, author, comment))
+// })
+const mapDispatchToProps = dispatch => ({
+  
+    addComment: (dishId, rating, author, comment) => dispatch(addComment(dishId, rating, author, comment))
+  
+  });
 
 class MainComponent extends Component {
     constructor(props) {
@@ -40,15 +51,20 @@ class MainComponent extends Component {
         const DishWithId = ({match}) => {
            
             return(
-                <DishDetailComponent dish={this.props.dishes.filter((dish) => dish.id === parseInt(match.params.dishId,10))[0]} 
-                   comments={this.props.comments.filter((comment) => comment.dishId === parseInt(match.params.dishId,10))} />
+                // <DishDetailComponent dish={this.props.dishes.filter((dish) => dish.id === parseInt(match.params.dishId,10))[0]} 
+                //    comments={this.props.comments.filter((comment) => comment.dishId === parseInt(match.params.dishId,10))} 
+                //    addComment={this.props.addComment}/>
+                <DishDetail2 dish={this.props.dishes.filter((dish) => dish.id === parseInt(match.params.dishId,10))[0]} 
+                comments={this.props.comments.filter((comment) => comment.dishId === parseInt(match.params.dishId,10))} 
+                addComment={this.props.addComment}/>
             );
           };
 
         return (
             <div>
                 
-                <Header />
+                {/* <Header /> */}
+                <Header2 />
                 <Switch>
                     <Route path='/home' component={HomePage} />
                     <Route 
@@ -58,7 +74,7 @@ class MainComponent extends Component {
                     <Route 
                         exact
                         path='/contactus'
-                        component={Contact} /> 
+                        component={Contact2} /> 
                     <Route path='/menu/:dishId' component={DishWithId} />
                     <Route 
                         exact
@@ -74,4 +90,4 @@ class MainComponent extends Component {
     }
 }
 
-export default withRouter((connect(mapStateToProps)(MainComponent))) ; 
+export default withRouter((connect(mapStateToProps, mapDispatchToProps)(MainComponent))) ; 
