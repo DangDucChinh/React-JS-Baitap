@@ -253,7 +253,8 @@ class DishDetail2 extends Component {
                         <RenderDish dish={this.props.dish} />
                         <RenderComment comments={this.props.comments}
                             addComment={this.props.addComment}
-                            dishId={this.props.dish.id} />
+                            dishId={this.props.dish.id} />  
+                            {/*  tại sao dishId ở đây lại dùng props.dish.Id  ????*/}
 
                     </div>
                 </div>
