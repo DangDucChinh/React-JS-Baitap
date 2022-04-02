@@ -27,7 +27,7 @@ function About(props) {
             </div>
         );
     }
-
+// đây là thay đổi thứ (9_2)
     return (
         <div className="container">
             <div className="row">
