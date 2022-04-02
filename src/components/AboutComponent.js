@@ -11,13 +11,13 @@ function About(props) {
 
     function RenderLeader({ leader }) {
         return (
-            <div className='row'>
-                <div className='col-2'>
+            <div className='row' style={{marginBottom: '30px'}}>
+                <div className='col-12 col-md-3 col-lg-3'>
                     <Media left middle>
                         <Media object src={leader.image} alt={leader.name} />
                     </Media>
                 </div>
-                <div className='col-8'>
+                <div className='col-12 col-md-7 col-lg-7'>
                     <Media body>
                         <Media heading>{leader.name}</Media>
                         <p>{leader.designation}</p>

@@ -7,7 +7,7 @@ import {
 import { Link } from 'react-router-dom';
 import { Control, LocalForm } from 'react-redux-form';
 import dateFormat from "dateformat";
-
+import {Loading} from './LoadingComponent';
 
 function RenderComment({ comments, addComment, dishId }) {
     // const comment1 = comments.map((comment1) => {
@@ -235,7 +235,24 @@ class DishDetail2 extends Component {
     }
 
     render() {
-        if (this.props.dish != null) {
+        if(this.props.isLoading){
+            return (
+                <div className='container'>
+                    <div className='row'>
+                        <Loading />
+                    </div>
+                </div>
+            );
+        }else if(this.props.errMess){
+            return (
+                <div className='container'>
+                    <div className='row'>
+                        <h4>{this.props.errMess}</h4>
+                    </div>
+                </div>
+            );
+        }
+        else if (this.props.dish != null) {
             return (
                 <div className="container" style={{ marginBottom: '50px' }}>
                     <div className="row">
