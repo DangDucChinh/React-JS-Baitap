@@ -10,7 +10,7 @@ import dateFormat from "dateformat";
 import {Loading} from './LoadingComponent';
 import { baseUrl } from '../shared/baseUrl';
 
-function RenderComment({ comments, addComment, dishId }) {
+function RenderComment({ comments, postComment, dishId }) {
     
     return (
         <div className="col-12 col-md-5 m-1">
@@ -32,7 +32,7 @@ function RenderComment({ comments, addComment, dishId }) {
                     );
                 })}
             </ul>
-            <CommentForm dishId={dishId} addComment={addComment} />
+            <CommentForm dishId={dishId} postComment={postComment} />
         </div>
     );
 }
@@ -57,7 +57,7 @@ class CommentForm extends Component {
 
     handleSubmit(value) {
         this.toggleModal();
-        this.props.addComment(
+        this.props.postComment(
             this.props.dishId,
             value.rating,
             value.author,
@@ -257,7 +257,7 @@ class DishDetail2 extends Component {
                         <RenderDish dish={this.props.dish} />
                         <RenderComment 
                         comments={this.props.comments}
-                            addComment={this.props.addComment}
+                        postComment={this.props.postComment}
                             dishId={this.props.dish.id} />  
                             {/*  tại sao dishId ở đây lại dùng props.dish.Id  ????*/}
 
