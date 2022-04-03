@@ -10,6 +10,8 @@ import Header2 from './Header2';
 
 import { postComment, fetchDishes, fetchComments, fetchPromos } from '../redux/ActionCreator';
 import DishDetail2 from './DishDetail2';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
+
 
 const mapStateToProps = state => {
     return {
@@ -82,25 +84,29 @@ class MainComponent extends Component {
             <div>
                 {/* <Header /> */}
                 <Header2 />
-                <Switch>
-                    <Route path='/home' component={HomePage} />
-                    <Route
-                        exact
-                        path='/menu'
-                        component={() => <MenuComponent dishes={this.props.dishes} />} />
-                    <Route
-                        exact
-                        path='/contactus'
-                        component={Contact2} />
-                    <Route path='/menu/:dishId' component={DishWithId} />
-                    <Route
-                        exact
-                        path='/aboutus'
-                        component={() => <About leaders={this.props.leaders} />} />
+                <TransitionGroup>
+                    <CSSTransition key={this.props.location.key} classNames='page' timeout={3000}>
+                        <Switch>
+                            <Route path='/home' component={HomePage} />
+                            <Route
+                                exact
+                                path='/menu'
+                                component={() => <MenuComponent dishes={this.props.dishes} />} />
+                            <Route
+                                exact
+                                path='/contactus'
+                                component={Contact2} />
+                            <Route path='/menu/:dishId' component={DishWithId} />
+                            <Route
+                                exact
+                                path='/aboutus'
+                                component={() => <About leaders={this.props.leaders} />} />
 
-                    <Redirect to='/home' />
-                    {/* Mặc định Direct */}
-                </Switch>
+                            <Redirect to='/home' />
+                            {/* Mặc định Direct */}
+                        </Switch>
+                    </CSSTransition>
+                </TransitionGroup>
                 <Footer />
             </div>
         );
