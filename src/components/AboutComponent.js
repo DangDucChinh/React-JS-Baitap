@@ -11,7 +11,7 @@ function About(props) {
 
     function RenderLeader({ leader }) {
         return (
-            <div className='row' style={{marginBottom: '30px'}}>
+            <div className='row' style={{marginBottom: '30px'}} key={leader.id}>
                 <div className='col-12 col-md-3 col-lg-3'>
                     <Media left middle>
                         <Media object src={leader.image} alt={leader.name} />

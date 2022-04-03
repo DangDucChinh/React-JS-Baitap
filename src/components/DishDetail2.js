@@ -8,23 +8,10 @@ import { Link } from 'react-router-dom';
 import { Control, LocalForm } from 'react-redux-form';
 import dateFormat from "dateformat";
 import {Loading} from './LoadingComponent';
+import { baseUrl } from '../shared/baseUrl';
 
 function RenderComment({ comments, addComment, dishId }) {
-    // const comment1 = comments.map((comment1) => {
-    //     return (
-    //         <div key={comment1.id}>
-    //             <p>{comment1.comment}</p>
-    //             <p>{"-- " + comment1.author + ", " + dateFormat(comment1.date, "dd/mm/yyyy")}</p>
-    //         </div>
-    //     )
-    // });
-    // return (
-    //     <div className="col-12 col-md-5 m-1">
-    //         <h4 style={{ textAlign: "left" }}>Comments</h4>
-    //         {comment1}
-    //         <CommentForm addComment={addComment} dishId={dishId} />
-    //     </div>
-    // )
+    
     return (
         <div className="col-12 col-md-5 m-1">
             <h4>Comments</h4>
@@ -218,7 +205,7 @@ function RenderDish({ dish }) {
     return (
         <div className="col-12 col-md-5 m-1">
             <Card>
-                <CardImg top src={dish.image} alt={dish.name} />
+                <CardImg top src={baseUrl +  dish.image} alt={dish.name} />
                 <CardBody>
                     <CardTitle>{dish.name}</CardTitle>
                     <CardText>{dish.description}</CardText>
@@ -268,7 +255,8 @@ class DishDetail2 extends Component {
                     </div>
                     <div className="row">
                         <RenderDish dish={this.props.dish} />
-                        <RenderComment comments={this.props.comments}
+                        <RenderComment 
+                        comments={this.props.comments}
                             addComment={this.props.addComment}
                             dishId={this.props.dish.id} />  
                             {/*  tại sao dishId ở đây lại dùng props.dish.Id  ????*/}
