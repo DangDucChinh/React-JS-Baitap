@@ -7,30 +7,37 @@ import {
 import { Link } from 'react-router-dom';
 import { Control, LocalForm } from 'react-redux-form';
 import dateFormat from "dateformat";
-import {Loading} from './LoadingComponent';
+import { Loading } from './LoadingComponent';
 import { baseUrl } from '../shared/baseUrl';
+import { FadeTransform, Fade, Stagger } from 'react-animation-components'
+
+
 
 function RenderComment({ comments, postComment, dishId }) {
-    
+
     return (
         <div className="col-12 col-md-5 m-1">
             <h4>Comments</h4>
             <ul className="list-unstyled">
-                {comments.map((comment) => {
-                    return (
-                        <li key={comment.id}>
-                            <p>{comment.comment}</p>
-                            <p>
-                                -- {comment.author},{" "}
-                                {new Intl.DateTimeFormat("en-US", {
-                                    year: "numeric",
-                                    month: "short",
-                                    day: "2-digit"
-                                }).format(new Date(Date.parse(comment.date)))}
-                            </p>
-                        </li>
-                    );
-                })}
+                <Stagger in>
+                    {comments.map((comment) => {
+                        return (
+                            <Fade in>
+                                <li key={comment.id}>
+                                    <p>{comment.comment}</p>
+                                    <p>
+                                        -- {comment.author},{" "}
+                                        {new Intl.DateTimeFormat("en-US", {
+                                            year: "numeric",
+                                            month: "short",
+                                            day: "2-digit"
+                                        }).format(new Date(Date.parse(comment.date)))}
+                                    </p>
+                                </li>
+                            </Fade>
+                        );
+                    })}
+                </Stagger>
             </ul>
             <CommentForm dishId={dishId} postComment={postComment} />
         </div>
@@ -204,13 +211,18 @@ class CommentForm extends Component {
 function RenderDish({ dish }) {
     return (
         <div className="col-12 col-md-5 m-1">
-            <Card>
-                <CardImg top src={baseUrl +  dish.image} alt={dish.name} />
-                <CardBody>
-                    <CardTitle>{dish.name}</CardTitle>
-                    <CardText>{dish.description}</CardText>
-                </CardBody>
-            </Card>
+            <FadeTransform in
+                transformProps={{
+                    exitTransform: 'scale(0.5) translateY(-50%)'
+                }} >
+                <Card>
+                    <CardImg top src={baseUrl + dish.image} alt={dish.name} />
+                    <CardBody>
+                        <CardTitle>{dish.name}</CardTitle>
+                        <CardText>{dish.description}</CardText>
+                    </CardBody>
+                </Card>
+            </FadeTransform>
         </div>
     );
 }
@@ -222,7 +234,7 @@ class DishDetail2 extends Component {
     }
 
     render() {
-        if(this.props.isLoading){
+        if (this.props.isLoading) {
             return (
                 <div className='container'>
                     <div className='row'>
@@ -230,7 +242,7 @@ class DishDetail2 extends Component {
                     </div>
                 </div>
             );
-        }else if(this.props.errMess){
+        } else if (this.props.errMess) {
             return (
                 <div className='container'>
                     <div className='row'>
@@ -255,11 +267,11 @@ class DishDetail2 extends Component {
                     </div>
                     <div className="row">
                         <RenderDish dish={this.props.dish} />
-                        <RenderComment 
-                        comments={this.props.comments}
-                        postComment={this.props.postComment}
-                            dishId={this.props.dish.id} />  
-                            {/*  tại sao dishId ở đây lại dùng props.dish.Id  ????*/}
+                        <RenderComment
+                            comments={this.props.comments}
+                            postComment={this.props.postComment}
+                            dishId={this.props.dish.id} />
+                        {/*  tại sao dishId ở đây lại dùng props.dish.Id  ????*/}
 
                     </div>
                 </div>
