@@ -1,17 +1,23 @@
-import './App.css';
-import React, { Component } from 'react';
-import MainComponent from './components/MainComponent';
+import React, {Component} from 'react';
+import Main from './components/MainComponent';
 import { BrowserRouter } from 'react-router-dom';
-class App extends Component {
-  render() {
+import { Provider } from 'react-redux';
+import { ConfigureStore } from './redux/configureStore';
+import './App.css';
+const store = ConfigureStore();
+class App extends Component{
+  render(){
     return (
-      <BrowserRouter>
-        <div>
-          <MainComponent />
-        </div>
-      </BrowserRouter>
+      <div className="App">
+          <Provider store={store}>
+            <BrowserRouter>
+              <div className="App">
+                <Main />
+              </div>
+            </BrowserRouter>
+          </Provider>
+      </div>
     );
   }
-}
-// cái này là 1 container
+ }
 export default App;
